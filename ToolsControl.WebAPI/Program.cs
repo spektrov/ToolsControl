@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ToolsControl.BLL.AutoMapper;
 using ToolsControl.DAL;
-using ToolsControl.DAL.Entities;
 using ToolsControl.DAL.Interfaces;
 using ToolsControl.WebAPI.Extensions;
 
@@ -14,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddAutoMapper(typeof(MappingProfileBusiness));
 
 builder.Services.AddDbContext<ToolsDbContext>(opts => 
         opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));

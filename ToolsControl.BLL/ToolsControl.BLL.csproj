@@ -10,4 +10,18 @@
       <ProjectReference Include="..\ToolsControl.DAL\ToolsControl.DAL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Exceptions" />
+      <Folder Include="Extensions" />
+      <Folder Include="Interfaces" />
+      <Folder Include="Services" />
+      <Folder Include="Utilities" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.0" />
+      <PackageReference Include="GemBox.Spreadsheet" Version="49.0.1153" />
+      <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.23" />
+    </ItemGroup>
+
 </Project>
