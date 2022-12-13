@@ -14,5 +14,6 @@ public static class AddRepositoriesExtension
         services.AddScoped<IUsageRepository, UsageRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IWorkerRepository, WorkerRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
     }
 }

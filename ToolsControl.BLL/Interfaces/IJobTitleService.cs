@@ -1,7 +1,7 @@
 ﻿using ToolsControl.BLL.Models;
 using ToolsControl.BLL.Models.RequestFeatures;
 
-namespace ToolsControl.BLL.Services;
+namespace ToolsControl.BLL.Interfaces;
 
 public interface IJobTitleService : ICrudService<JobTitleModel>
 {

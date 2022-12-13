@@ -1,4 +1,4 @@
-﻿namespace ToolsControl.BLL.Services;
+﻿namespace ToolsControl.BLL.Interfaces;
 
 public interface ICrudService<T> where  T : class
 {

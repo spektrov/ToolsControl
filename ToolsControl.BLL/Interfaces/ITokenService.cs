@@ -1,6 +1,6 @@
 ﻿using ToolsControl.DAL.Entities;
 
-namespace ToolsControl.BLL.Services;
+namespace ToolsControl.BLL.Interfaces;
 
 public interface ITokenService
 {

@@ -18,14 +18,19 @@ public class UnitOfWork : IUnitOfWork
     
     public IWorkerRepository WorkerRepository { get; }
     
+    public ITokenRepository TokenRepository { get; }
     
+    public IUserRepository UserRepository { get; }
+
+
     public UnitOfWork(ToolsDbContext dbContext,
         IAllowedAccessRepository accessRepository,
         IEquipmentRepository equipmentRepository,
         IEquipmentTypeRepository equipmentTypeRepository,
         IJobTitleRepository jobTitleRepository, 
         IUsageRepository usageRepository,
-        IWorkerRepository workerRepository)
+        IWorkerRepository workerRepository, 
+        ITokenRepository tokenRepository, IUserRepository userRepository)
     {
         _dbContext = dbContext;
         AccessRepository = accessRepository;
@@ -34,6 +39,8 @@ public class UnitOfWork : IUnitOfWork
         JobTitleRepository = jobTitleRepository;
         UsageRepository = usageRepository;
         WorkerRepository = workerRepository;
+        TokenRepository = tokenRepository;
+        UserRepository = userRepository;
     }
 
 

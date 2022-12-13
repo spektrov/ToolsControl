@@ -2,7 +2,7 @@
 using ToolsControl.BLL.Models.RequestFeatures;
 using ToolsControl.BLL.Models.Responses;
 
-namespace ToolsControl.BLL.Services;
+namespace ToolsControl.BLL.Interfaces;
 
 public interface IUserService
 {

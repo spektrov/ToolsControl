@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToolsControl.BLL.AutoMapper;
 using ToolsControl.DAL;

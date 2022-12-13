@@ -14,6 +14,10 @@ public interface IUnitOfWork
     
     public IWorkerRepository WorkerRepository { get; }
     
+    public ITokenRepository TokenRepository { get; }
+    
+    public IUserRepository UserRepository { get; }
+    
     public Task SaveAsync();
 
     public void ClearTracking();
