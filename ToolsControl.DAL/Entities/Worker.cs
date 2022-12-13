@@ -3,7 +3,7 @@
 public class Worker : BaseEntity
 {
     public Guid UserId { get; set; }
-    public ApplicationUser? User { get; set; }
+    public User? User { get; set; }
     
     public Guid TitleId { get; set; }
     public JobTitle? Title { get; set; }

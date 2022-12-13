@@ -2,7 +2,7 @@
 
 namespace ToolsControl.DAL.Entities;
 
-public class ApplicationUser : IdentityUser<Guid>
+public class User : IdentityUser<Guid>
 {
     public string FirstName { get; set; } = string.Empty;
     

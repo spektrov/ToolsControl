@@ -4,7 +4,7 @@ using ToolsControl.DAL.Entities;
 
 namespace ToolsControl.DAL;
 
-public class ToolsDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
+public class ToolsDbContext : IdentityDbContext<User, ApplicationRole, Guid>
 {
     public ToolsDbContext(DbContextOptions options) : base(options) { } 
     

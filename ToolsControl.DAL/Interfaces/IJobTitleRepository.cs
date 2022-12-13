@@ -4,5 +4,5 @@ namespace ToolsControl.DAL.Interfaces;
 
 public interface IJobTitleRepository : IRepository<JobTitle>
 {
-    public Task<JobTitle>? GetById(Guid id);
+    
 }
