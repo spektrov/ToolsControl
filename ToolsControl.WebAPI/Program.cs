@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ToolsDbContext>(opts =>
 
 builder.Services.AddRepositories();
 builder.Services.AddAddBusinessServices();
+builder.Services.AddValidationFilters();
 
 builder.Services.ConfigureTokens();
 builder.Services.ConfigureIdentity();
