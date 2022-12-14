@@ -55,6 +55,7 @@ public class UserService : IUserService
     public async Task<ResultResponse> SignupAsync(UserModel signupRequest, string password)
     {
         var user = _mapper.Map<User>(signupRequest);
+        user.UserName = Guid.NewGuid().ToString();
 
         var resultCreate = await _unitOfWork.UserRepository.CreateAsync(user, password);
         if (!resultCreate.Succeeded) 
@@ -62,8 +63,10 @@ public class UserService : IUserService
             var errors = resultCreate.Errors.Select(e => e.Description);
             return new ResultResponse { Success = false, Errors = errors };
         }
+
+        signupRequest.Role ??= "Worker";
         
-        if (!await _unitOfWork.UserRepository.AddToRoleAsync(user, "USER"))
+        if (!await _unitOfWork.UserRepository.AddToRoleAsync(user, signupRequest.Role))
         {
             return new ResultResponse { Success = false };
         }
@@ -97,7 +100,7 @@ public class UserService : IUserService
         entity.Email = user.Email;
         entity.FirstName = user.FirstName;
         entity.LastName = user.LastName;
-        entity.UserName = user.Username;
+        entity.BirthDate = user.BirthDate;
 
         var result = await _unitOfWork.UserRepository.UpdateAsync(entity);
         
