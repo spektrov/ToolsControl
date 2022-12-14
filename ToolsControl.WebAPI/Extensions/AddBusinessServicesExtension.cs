@@ -2,5 +2,8 @@
 
 public static class AddBusinessServicesExtension
 {
-    
+    public static void AddAddBusinessServices(this IServiceCollection services)
+    {
+        
+    }
 }

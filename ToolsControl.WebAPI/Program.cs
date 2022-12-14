@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ToolsDbContext>(opts =>
         opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
 
 builder.Services.AddRepositories();
+builder.Services.AddAddBusinessServices();
 
 builder.Services.ConfigureTokens();
 builder.Services.ConfigureIdentity();
