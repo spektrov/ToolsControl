@@ -72,7 +72,7 @@ public class UsageService : IUsageService
     
     private static void Validate(UsageModel model)
     {
-        if (model.Finish < model.Start)
+        if (model.Finish != null && model.Finish < model.Start)
         {
             throw new ToolsControlException("Something went wrong.");
         }
