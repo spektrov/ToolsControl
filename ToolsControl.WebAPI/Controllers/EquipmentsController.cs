@@ -12,7 +12,7 @@ using ToolsControl.WebAPI.Models;
 
 namespace ToolsControl.WebAPI.Controllers;
 
-[Authorize]
+
 [Route("api/equipments")]
 [ApiController]
 public class EquipmentsController : BaseApiController
@@ -63,7 +63,7 @@ public class EquipmentsController : BaseApiController
     /// </summary>
     /// <param name="request">Creation model</param>
     /// <returns>201 - if created, 422 - on model error</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [HttpPost]
     public async Task<IActionResult> CreateEquipment([FromBody]EquipmentCreateRequest request)
@@ -88,7 +88,7 @@ public class EquipmentsController : BaseApiController
     /// <param name="id">equipment id</param>
     /// <param name="request">Creation model</param>
     /// <returns>204 - if updated, 422 - on model error; 404 - if not found</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [ServiceFilter(typeof(ValidateEquipmentExistsAttribute))]
     [HttpPut("{id:guid}")]
@@ -107,6 +107,61 @@ public class EquipmentsController : BaseApiController
             return UnprocessableEntity(e.Message);
         }
     }
+    
+    
+    /// <summary>
+    /// PUT api/equipments/EBBC042A-50F8-4B35-B72C-3839AB885455/usage
+    /// </summary>
+    /// <param name="id">equipment id</param>
+    /// <param name="isAbleToWork"></param>
+    /// <returns>204 - if ok; 404 - otherwise</returns>
+    [ServiceFilter(typeof(ValidateEquipmentExistsAttribute))]
+    [HttpPut("{id:guid}/usage")]
+    public async Task<IActionResult> UpdateEquipmentAbleToWork(Guid id, [FromBody] bool isAbleToWork)
+    {
+        var model = HttpContext.Items["equipment"] as EquipmentModel;
+
+        model!.IsAbleToWork = isAbleToWork;
+
+        try
+        {
+            await _equipmentService.UpdateAsync(model);
+
+            return NoContent();
+        }
+        catch (ToolsControlException e)
+        {
+            return UnprocessableEntity(e.Message);
+        }
+    }
+    
+    
+    /// <summary>
+    /// PUT api/equipments/EBBC042A-50F8-4B35-B72C-3839AB885455/inspection
+    /// </summary>
+    /// <param name="id">equipment id</param>
+    /// <param name="inspection">date of inspection</param>
+    /// <returns>204 - if ok; 404 - otherwise</returns>
+    [ServiceFilter(typeof(ValidateEquipmentExistsAttribute))]
+    [HttpPut("{id:guid}/inspection")]
+    public async Task<IActionResult> UpdateEquipmentAbleToWork(Guid id, [FromBody] DateTime inspection)
+    {
+        var model = HttpContext.Items["equipment"] as EquipmentModel;
+
+        model!.LastInspection = inspection;
+
+        try
+        {
+            await _equipmentService.UpdateAsync(model);
+
+            return NoContent();
+        }
+        catch (ToolsControlException e)
+        {
+            return UnprocessableEntity(e.Message);
+        }
+    }
+    
 
     
     /// <summary>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ToolsControl.BLL.Exceptions;
+using ToolsControl.BLL.Extensions;
 using ToolsControl.BLL.Interfaces;
 using ToolsControl.BLL.Models;
 using ToolsControl.BLL.Models.RequestFeatures;
@@ -59,8 +60,10 @@ public class EquipmentService : IEquipmentService
     public async Task<PagedList<EquipmentModel>> GetEquipments(EquipmentParameters parameters)
     {
         var entities = _unitOfWork.EquipmentRepository
-            .FindAll(false);
-
+            .FindAll(false)
+            .Search(parameters.SearchTerm)
+            .Sort(parameters.OrderBy);
+        
         var models =  _mapper.Map<ICollection<EquipmentModel>>(entities);
         
         return PagedList<EquipmentModel>.ToPagedList(models, parameters.PageNumber, parameters.PageSize);

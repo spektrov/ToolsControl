@@ -4,7 +4,7 @@ public class EquipmentType : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
 
-    public TimeSpan InspectionPeriod { get; set; }
+    public int InspectionPeriod { get; set; }
     
     public ICollection<Equipment>? Equipments { get; set; }
 }

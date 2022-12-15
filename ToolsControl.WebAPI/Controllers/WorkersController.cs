@@ -12,7 +12,6 @@ using ToolsControl.WebAPI.Models;
 
 namespace ToolsControl.WebAPI.Controllers;
 
-[Authorize]
 [Route("api/workers")]
 [ApiController]
 public class WorkersController : BaseApiController
@@ -63,7 +62,7 @@ public class WorkersController : BaseApiController
     /// </summary>
     /// <param name="request">Creation model</param>
     /// <returns>201 - if created, 422 - on model error</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [HttpPost]
     public async Task<IActionResult> CreateWorker([FromBody]WorkerCreateRequest request)
@@ -88,7 +87,7 @@ public class WorkersController : BaseApiController
     /// <param name="id">worker id</param>
     /// <param name="request">Creation model</param>
     /// <returns>204 - if updated, 422 - on model error; 404 - if not found</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [ServiceFilter(typeof(ValidateWorkerExistsAttribute))]
     [HttpPut("{id:guid}")]
@@ -114,7 +113,7 @@ public class WorkersController : BaseApiController
     /// </summary>
     /// <param name="id">worker id</param>
     /// <returns>204 - if deleted, 404 - otherwise</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidateWorkerExistsAttribute))]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteWorker(Guid id)

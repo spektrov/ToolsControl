@@ -11,7 +11,7 @@ using ToolsControl.WebAPI.Models;
 
 namespace ToolsControl.WebAPI.Controllers;
 
-[Authorize]
+
 [Route("api/accounts")]
 [ApiController]
 public class AccountsController : BaseApiController
@@ -31,7 +31,6 @@ public class AccountsController : BaseApiController
     /// </summary>
     /// <param name="parameters">Filter parameters</param>
     /// <returns>200 - Filtered collection</returns>
-    [Authorize( Roles = "Administrator,Manager")]
     [HttpGet]
     public async Task<IActionResult> GetUsers([FromQuery] UserParameters parameters)
     {
@@ -117,7 +116,7 @@ public class AccountsController : BaseApiController
     /// </summary>
     /// <param name="id">Account id</param>
     /// <returns>200 422 404 codes</returns>
-    [Authorize( Roles = "Administrator")]
+    //[Authorize( Roles = "Administrator")]
     [ServiceFilter(typeof(ValidateUserExistsAttribute))]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteUser(Guid id)
@@ -134,9 +133,9 @@ public class AccountsController : BaseApiController
     /// <param name="id">Account id</param>
     /// <param name="request">Change request</param>
     /// <returns>204 - changed; 400 - otherwise</returns>
-    [HttpPut("{id:guid}/password")]
     [ServiceFilter(typeof(ValidateUserExistsAttribute))]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [HttpPut("{id:guid}/password")]
     public async Task<IActionResult> ChangePassword(Guid id, UserChangePasswordRequest request)
     {
         var response = await _userService.ChangePasswordAsync(id, request.CurrentPassword, request.NewPassword);

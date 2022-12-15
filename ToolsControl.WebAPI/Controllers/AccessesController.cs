@@ -12,7 +12,7 @@ using ToolsControl.WebAPI.Models;
 
 namespace ToolsControl.WebAPI.Controllers;
 
-[Authorize]
+
 [Route("api/accesses")]
 [ApiController]
 public class AccessesController : BaseApiController
@@ -63,7 +63,7 @@ public class AccessesController : BaseApiController
     /// </summary>
     /// <param name="request">Creation model</param>
     /// <returns>201 - if created, 422 - on model error</returns>
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [HttpPost]
     public async Task<IActionResult> CreateAccess([FromBody]AccessCreateRequest request)
@@ -88,7 +88,7 @@ public class AccessesController : BaseApiController
     /// </summary>
     /// <param name="id">access id</param>
     /// <returns>204 - if deleted, 404 - otherwise</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidateAccessExistsAttribute))]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteAccess(Guid id)

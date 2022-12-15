@@ -16,6 +16,7 @@ public class WorkerRepository : Repository<Worker>, IWorkerRepository
             .Include(x => x.Title)
             .Include(x => x.Usages)
             .Include(x => x.AllowedAccesses)
+            .Include(x => x.User)
             .SingleOrDefaultAsync();
     }
 }

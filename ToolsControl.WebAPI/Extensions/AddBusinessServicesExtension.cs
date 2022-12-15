@@ -15,5 +15,6 @@ public static class AddBusinessServicesExtension
         services.AddScoped<IUsageService, UsageService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IWorkerService, WorkerService>();
+        services.AddScoped<IStatisticService, StatisticService>();
     }
 }

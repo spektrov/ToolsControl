@@ -33,7 +33,7 @@ public class UsageService : IUsageService
 
     public async Task<UsageModel> CreateAsync(UsageModel model)
     {
-        Validate(model);
+        await Validate(model);
         var entity = _mapper.Map<Usage>(model);
         _unitOfWork.UsageRepository.Create(entity);
         await _unitOfWork.SaveAsync();
@@ -42,7 +42,7 @@ public class UsageService : IUsageService
 
     public async Task<UsageModel> UpdateAsync(UsageModel model)
     {
-        Validate(model);
+        await Validate(model);
         var entity = _mapper.Map<Usage>(model);
         _unitOfWork.UsageRepository.Update(entity);
         await _unitOfWork.SaveAsync();
@@ -70,8 +70,23 @@ public class UsageService : IUsageService
     }
     
     
-    private static void Validate(UsageModel model)
+    private async Task Validate(UsageModel model)
     {
+        var access = _unitOfWork.AccessRepository.FindByCondition(x =>
+            x.EquipmentId == model.EquipmentId && x.WorkerId == model.WorkerId, false)
+            .Any();
+        if (!access)
+        {
+            throw new ToolsControlException("Worker has no access to this equipment.");
+        }
+        
+        
+        var equipment = await _unitOfWork.EquipmentRepository.GetByIdAsync(model.EquipmentId);
+        if (equipment != null && (!equipment.IsAbleToWork || !equipment.IsAvailable))
+        {
+            throw new ToolsControlException("Equipment isn't available");
+        }
+        
         if (model.Finish != null && model.Finish < model.Start)
         {
             throw new ToolsControlException("Something went wrong.");

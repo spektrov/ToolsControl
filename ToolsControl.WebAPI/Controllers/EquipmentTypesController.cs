@@ -12,7 +12,7 @@ using ToolsControl.WebAPI.Models;
 
 namespace ToolsControl.WebAPI.Controllers;
 
-[Authorize]
+
 [Route("api/equipment-types")]
 [ApiController]
 public class EquipmentTypesController : BaseApiController
@@ -63,7 +63,7 @@ public class EquipmentTypesController : BaseApiController
     /// </summary>
     /// <param name="request">Creation model</param>
     /// <returns>201 - if created, 422 - on model error</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [HttpPost]
     public async Task<IActionResult> CreateEquipmentType([FromBody]EquipmentTypeCreateRequest request)
@@ -88,7 +88,7 @@ public class EquipmentTypesController : BaseApiController
     /// <param name="id">equipment type id</param>
     /// <param name="request">Creation model</param>
     /// <returns>204 - if updated, 422 - on model error; 404 - if not found</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     [ServiceFilter(typeof(ValidateEquipmentTypeExistsAttribute))]
     [HttpPut("{id:guid}")]
@@ -114,7 +114,7 @@ public class EquipmentTypesController : BaseApiController
     /// </summary>
     /// <param name="id">equipment type id</param>
     /// <returns>204 - if deleted, 404 - otherwise</returns>
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     [ServiceFilter(typeof(ValidateEquipmentTypeExistsAttribute))]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteEquipmentType(Guid id)
