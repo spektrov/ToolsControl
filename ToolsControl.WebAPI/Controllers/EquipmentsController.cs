@@ -1,5 +1,5 @@
-﻿using System.Linq.Dynamic.Core;
-using AutoMapper;
+﻿using AutoMapper;
+using GemBox.Spreadsheet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -7,6 +7,7 @@ using ToolsControl.BLL.Exceptions;
 using ToolsControl.BLL.Interfaces;
 using ToolsControl.BLL.Models;
 using ToolsControl.BLL.Models.RequestFeatures;
+using ToolsControl.BLL.Models.Responses;
 using ToolsControl.WebAPI.ActionFilters;
 using ToolsControl.WebAPI.Models;
 
@@ -39,7 +40,19 @@ public class EquipmentsController : BaseApiController
         
         Response.Headers.Add("x-pagination", JsonConvert.SerializeObject(units.MetaData));
 
-        return Ok(await units.ToDynamicListAsync());
+        return Ok(units);
+    }
+
+    /// <summary>
+    /// GET api/equipments/available
+    /// </summary>
+    /// <returns>200 - Filtered collection</returns>
+    [HttpGet("available")]
+    public async Task<IActionResult> GetAvailableEquipments([FromQuery]string type)
+    {
+        var units = await _equipmentService.GetAvailableEquipments(type);
+
+        return Ok(units);
     }
     
     

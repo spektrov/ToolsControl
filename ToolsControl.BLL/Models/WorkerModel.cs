@@ -13,6 +13,8 @@ public class WorkerModel
     public DateTime HiringDate { get; set; }
     
     public decimal SalaryValue { get; set; }
+    
+    public string CardNumber { get; set; } = string.Empty;
 
     public virtual ICollection<AllowedAccessModel>? AllowedAccesses { get; set; }
     

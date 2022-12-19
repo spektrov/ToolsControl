@@ -5,7 +5,7 @@ using ToolsControl.DAL.Interfaces;
 
 namespace ToolsControl.DAL.Repositories;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 {
     protected readonly ToolsDbContext ToolsDbContext;
 

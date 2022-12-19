@@ -68,4 +68,15 @@ public class EquipmentService : IEquipmentService
         
         return PagedList<EquipmentModel>.ToPagedList(models, parameters.PageNumber, parameters.PageSize);
     }
+    
+    
+    public async Task<IEnumerable<EquipmentModel>> GetAvailableEquipments(string type)
+    {
+        var entities = _unitOfWork.EquipmentRepository
+            .FindByCondition(x => x.IsAbleToWork && x.IsAvailable && x.Type!.Name == type, false);
+
+        var models =  _mapper.Map<ICollection<EquipmentModel>>(entities);
+
+        return models;
+    }
 }

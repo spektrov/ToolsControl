@@ -10,6 +10,8 @@ public class WorkerCreateRequest
     [Required]
     public Guid TitleId { get; set; }
     
+    public string CardNumber { get; set; } = string.Empty;
+    
     public DateTime HiringDate { get; set; }
     
     public decimal SalaryValue { get; set; }

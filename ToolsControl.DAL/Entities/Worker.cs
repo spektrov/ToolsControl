@@ -12,6 +12,8 @@ public class Worker : BaseEntity
     
     public decimal SalaryValue { get; set; }
 
+    public string CardNumber { get; set; } = string.Empty;
+
     public virtual ICollection<AllowedAccess>? AllowedAccesses { get; set; }
     
     public virtual ICollection<Usage>? Usages { get; set; }

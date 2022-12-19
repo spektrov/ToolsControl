@@ -6,4 +6,7 @@ namespace ToolsControl.BLL.Interfaces;
 public interface IEquipmentService : ICrudService<EquipmentModel>
 {
     public Task<PagedList<EquipmentModel>> GetEquipments(EquipmentParameters parameters);
+
+
+    public Task<IEnumerable<EquipmentModel>> GetAvailableEquipments(string type);
 }

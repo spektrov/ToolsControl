@@ -1,5 +1,8 @@
+using GemBox.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using ToolsControl.BLL.AutoMapper;
+using ToolsControl.BLL.Interfaces;
+using ToolsControl.BLL.Utilities;
 using ToolsControl.DAL;
 using ToolsControl.DAL.Interfaces;
 using ToolsControl.WebAPI.AutoMapper;
@@ -36,6 +39,8 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 builder.Services.AddMemoryCache();
+
+builder.Services.AddScoped<IEquipmentReportGenerator<ExcelFile>, ExcelEquipmentReportGenerator>();
 
 var app = builder.Build();
 

@@ -7,7 +7,7 @@ namespace ToolsControl.BLL.Extensions;
 
 public static class EquipmentServiceExtension
 {
-
+    
     public static IQueryable<Equipment> Search(
         this IQueryable<Equipment> equipments, string? query)
     {
