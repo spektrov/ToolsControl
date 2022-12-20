@@ -5,7 +5,7 @@ namespace ToolsControl.WebAPI.Models;
 public class UsageCreateRequest
 {
     [Required]
-    public Guid WorkerId { get; set; }
+    public string WorkerCard { get; set; }
 
     [Required]
     public Guid EquipmentId { get; set; }

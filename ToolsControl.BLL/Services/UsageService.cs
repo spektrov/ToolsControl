@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ToolsControl.BLL.Exceptions;
 using ToolsControl.BLL.Interfaces;
 using ToolsControl.BLL.Models;
@@ -34,6 +35,15 @@ public class UsageService : IUsageService
     public async Task<UsageModel> CreateAsync(UsageModel model)
     {
         await Validate(model);
+        var worker = await _unitOfWork.WorkerRepository
+            .FindByCondition(x => x.CardNumber == model.WorkerCard, false)
+            .FirstOrDefaultAsync();
+        if (worker == null)
+        {
+            throw new ToolsControlException("Worker with card not found");
+        }
+        model.WorkerId = worker.Id;
+
         var entity = _mapper.Map<Usage>(model);
         _unitOfWork.UsageRepository.Create(entity);
         await _unitOfWork.SaveAsync();
@@ -43,6 +53,17 @@ public class UsageService : IUsageService
     public async Task<UsageModel> UpdateAsync(UsageModel model)
     {
         await Validate(model);
+        
+        var worker = await _unitOfWork.WorkerRepository
+            .FindByCondition(x => x.CardNumber == model.WorkerCard, false)
+            .FirstOrDefaultAsync();
+        if (worker == null)
+        {
+            throw new ToolsControlException("Worker with card not found");
+        }
+
+        model.WorkerId = worker.Id;
+        
         var entity = _mapper.Map<Usage>(model);
         _unitOfWork.UsageRepository.Update(entity);
         await _unitOfWork.SaveAsync();

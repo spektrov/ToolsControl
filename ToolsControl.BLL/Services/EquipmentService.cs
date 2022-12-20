@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ToolsControl.BLL.Exceptions;
 using ToolsControl.BLL.Extensions;
 using ToolsControl.BLL.Interfaces;
@@ -78,5 +79,29 @@ public class EquipmentService : IEquipmentService
         var models =  _mapper.Map<ICollection<EquipmentModel>>(entities);
 
         return models;
+    }
+
+    public async Task<bool> VerifyAccess(Guid id, string cardNumber)
+    {
+        // Worker checks.
+        var worker = await _unitOfWork.WorkerRepository
+            .FindByCondition(x => x.CardNumber == cardNumber, false)
+            .FirstOrDefaultAsync();
+        if (worker == null) return false;
+
+        // Equipment checks.
+        var equipment = await _unitOfWork.EquipmentRepository.GetByIdAsync(id);
+        if (equipment == null) return false;
+        if (! equipment.IsAvailable) return false;
+        if (! equipment.IsAbleToWork) return false;
+
+        // Access checks.
+        var access = await _unitOfWork.AccessRepository
+            .FindByCondition(x =>
+                x.EquipmentId == equipment.Id && x.WorkerId == worker.Id, false)
+            .FirstOrDefaultAsync();
+        if (access == null) return false;
+
+        return true;
     }
 }

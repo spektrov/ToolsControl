@@ -9,4 +9,6 @@ public interface IEquipmentService : ICrudService<EquipmentModel>
 
 
     public Task<IEnumerable<EquipmentModel>> GetAvailableEquipments(string type);
+
+    public Task<bool> VerifyAccess(Guid id, string cardNumber);
 }

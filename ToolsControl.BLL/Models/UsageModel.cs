@@ -7,6 +7,8 @@ public class UsageModel
     public Guid WorkerId { get; set; }
     public WorkerModel? Worker { get; set; }
     
+    public string? WorkerCard { get; set; }
+    
     public Guid EquipmentId { get; set; }
     public EquipmentModel? Equipment { get; set; }
     

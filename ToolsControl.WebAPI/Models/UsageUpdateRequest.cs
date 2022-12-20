@@ -8,7 +8,7 @@ public class UsageUpdateRequest
     public Guid Id { get; set; }
 
     [Required]
-    public Guid WorkerId { get; set; }
+    public string WorkerCard { get; set; }
 
     [Required]
     public Guid EquipmentId { get; set; }

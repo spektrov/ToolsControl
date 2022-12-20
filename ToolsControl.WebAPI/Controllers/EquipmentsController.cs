@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using GemBox.Spreadsheet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -7,7 +6,6 @@ using ToolsControl.BLL.Exceptions;
 using ToolsControl.BLL.Interfaces;
 using ToolsControl.BLL.Models;
 using ToolsControl.BLL.Models.RequestFeatures;
-using ToolsControl.BLL.Models.Responses;
 using ToolsControl.WebAPI.ActionFilters;
 using ToolsControl.WebAPI.Models;
 
@@ -53,6 +51,14 @@ public class EquipmentsController : BaseApiController
         var units = await _equipmentService.GetAvailableEquipments(type);
 
         return Ok(units);
+    }
+
+
+    [HttpGet("{id:guid}/verify")]
+    public async Task<IActionResult> VerifyAccess(Guid id, [FromQuery] string cardNumber)
+    {
+        var allowed = await _equipmentService.VerifyAccess(id, cardNumber);
+        return Ok(allowed);
     }
     
     
@@ -135,6 +141,32 @@ public class EquipmentsController : BaseApiController
         var model = HttpContext.Items["equipment"] as EquipmentModel;
 
         model!.IsAbleToWork = isAbleToWork;
+
+        try
+        {
+            await _equipmentService.UpdateAsync(model);
+
+            return NoContent();
+        }
+        catch (ToolsControlException e)
+        {
+            return UnprocessableEntity(e.Message);
+        }
+    }
+    
+    /// <summary>
+    /// PUT api/equipments/EBBC042A-50F8-4B35-B72C-3839AB885455/available
+    /// </summary>
+    /// <param name="id">equipment id</param>
+    /// <param name="isAvailable"></param>
+    /// <returns>204 - if ok; 404 - otherwise</returns>
+    [ServiceFilter(typeof(ValidateEquipmentExistsAttribute))]
+    [HttpPut("{id:guid}/available")]
+    public async Task<IActionResult> UpdateEquipmentIsAvailable(Guid id, [FromBody] bool isAvailable)
+    {
+        var model = HttpContext.Items["equipment"] as EquipmentModel;
+
+        model!.IsAvailable = isAvailable;
 
         try
         {
